@@ -1,0 +1,25 @@
+<h2>新規登録画面</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
+  <div>
+    <%= f.label :name, "お名前" %><br>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+  <div>
+    <%= f.label :email %><br>
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+  <div>
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>
+<%= render "devise/shared/links" %>
+<%= link_to "施設一覧に戻る", rooms_path, class: "btn btn-secondary", style: "margin-top: 16px;" %>
+<%= link_to "戻る", root_path, class: "btn btn-secondary", style: "margin-left: 8px; margin-top: 16px;" %>
