@@ -5,11 +5,7 @@
   <p>メールアドレス：<%= @user.email %></p>
   <p>パスワード：＊＊＊＊＊＊＊</p>
   <p>自己紹介: <%= @user.profile.presence || "未登録" %></p>
-  <% if @user.img.present? %>
-    <%= image_tag "/uploads/#{@user.img}", alt: @user.name, width: 100 %>
-  <% else %>
-    <%= image_tag "icon-default.png", alt: "no image", width: 100 %>
-  <% end %>
+  
 </div>
 
 <div class="actions">
