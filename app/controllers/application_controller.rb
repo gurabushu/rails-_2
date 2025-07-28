@@ -12,11 +12,6 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  def after_sign_in_path_for(resource)
-    room = Room.first
-    room ? room_path(room) : rooms_path
-  end
-
   def after_sign_up_path_for(resource)
     session.delete(:return_to) || super
   end

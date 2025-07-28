@@ -1,27 +1,38 @@
-<%= form_with model: @room do |form| %>
-  <% if @room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
 
-      <ul>
-        <% @room.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<h2><%= @user.name %>さんの予約履歴</h2>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Create Room" %>
-  </div>
+<% if @reservations.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>施設名</th>
+        <th>チェックイン</th>
+        <th>チェックアウト</th>
+        <th>人数</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.room&.name || "施設情報なし" %></td>
+          <td><%= reservation.start_time %></td>
+          <td><%= reservation.end_time %></td>
+          <td><%= reservation.person %></td>
+          <td>
+            <% if reservation.room.present? %>
+              <%= link_to "施設詳細", room_path(reservation.room), class: "btn btn-primary btn-sm" %>
+              <%= link_to "削除", room_reservation_path(reservation.room, reservation), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+            <% else %>
+              施設情報なし
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>予約履歴はありません。</p>
 <% end %>
+
+<%= link_to "施設一覧に戻る", rooms_path, class: "btn btn-secondary", style: "margin-top: 16px;" %>

@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.all
+    @user = User.find(params[:user_id])
+    @reservations = @user.reservations.includes(:room)
   end
 
   def new
@@ -27,12 +28,12 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     user = @reservation.user
     @reservation.destroy
-    redirect_to user_path(user), notice: "予約を削除しました"
+    redirect_to user_reservations_path(user), notice: "予約を削除しました"
   end
 
   def show
     @reservation = Reservation.find(params[:id])
-    redirect_to user_path(@reservation.user)
+    redirect_to user_reservations_path(@reservation.user)
   end
 
   def complete

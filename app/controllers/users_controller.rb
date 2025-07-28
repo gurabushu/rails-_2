@@ -22,7 +22,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def show
+  def profile
+    @user = User.find(params[:id])
+  end
+
+  def account_edit
+    @user = User.find(params[:id])
+  end
+
+  def account
     @user = User.find(params[:id])
     @reservations = Reservation.where(user_id: @user.id)
     @owned_rooms = @user.rooms 
@@ -46,6 +54,15 @@ class UsersController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    
+  end
+
+  def show_edit
+    @user = User.find(params[:id])
   end
 
   private
