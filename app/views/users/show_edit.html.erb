@@ -1,0 +1,33 @@
+<h1>プロフィール情報編集</h1>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@user, url: user_path(@user), html: { multipart: true }) do |f| %>
+  <div class="form-group">
+    <%= f.label :profile, "自己紹介" %>
+    <%= f.text_area :profile, class: "form-control", rows: 3 %>
+  </div>
+  <% if @user.img.present? %>
+    <%= image_tag "/uploads/#{@user.img}", alt: @user.name, width: 100 %>
+  <% else %>
+    <%= image_tag "icon-default.png", alt: "no image", width: 100 %>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :img, "プロフィール画像" %>
+    <%= f.file_field :img, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新する", class: "btn btn-primary" %>
+    <%= link_to "戻る", profile_user_path(@user), class: "btn btn-secondary" %>
+  </div>
+<% end %>
+

@@ -1,0 +1,32 @@
+
+<h2><%= @user.name %>さんが登録した施設</h2>
+
+<% if @owned_rooms.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>施設名</th>
+        <th>説明</th>
+        <th>料金</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @owned_rooms.each do |room| %>
+        <tr>
+          <td><%= room.name %></td>
+          <td><%= room.description %></td>
+          <td><%= number_to_currency(room.cash, unit: "¥", precision: 0) %></td>
+          <td>
+            <%= link_to "詳細", room_path(room), class: "btn btn-primary btn-sm" %>
+            <%= link_to "編集", edit_room_path(room), class: "btn btn-secondary btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>登録した施設はありません。</p>
+<% end %>
+
+<%= link_to "施設一覧に戻る", rooms_path, class: "btn btn-secondary", style: "margin-top: 16px;" %>

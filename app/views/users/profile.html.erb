@@ -1,0 +1,24 @@
+<h1>プロフィール</h1>
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="user-info">
+  <p>名前：<%= @user.name %></p>
+  <p>アイコン画像：<%= image_tag @user.img, alt: @user.name, width: 100 if @user.img.attached? %></p>
+  <p>自己紹介：<%= @user.profile %></p>
+</div>
+  
+
+<div class="actions">
+  <%= link_to "削除", user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  <%= link_to "編集", show_edit_user_path(@user), class: "btn btn-secondary" %>
+</div>
+
+<%= link_to "施設一覧に戻る", rooms_path, class: "btn btn-secondary" %>

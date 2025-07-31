@@ -1,0 +1,51 @@
+<h1>新規施設登録</h1>
+
+<%= form_with model: @room, local: true, multipart: true do |f| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@room.errors.count, "error") %> 件のエラーがあります:</h2>
+      <ul>
+        <% @room.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "施設名" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :area, "エリア" %>
+    <%= f.select :area, ["東京", "京都", "大阪", "札幌"], {}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, "説明" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :img, "画像" %>
+    <%= f.file_field :img, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cash, "料金" %>
+    <%= f.number_field :cash, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :created_at, "登録日" %>
+    <%= f.text_field :created_at, value: Time.current.strftime("%Y-%m-%d"), class: "form-control", readonly: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code, "郵便番号" %>
+    <%= f.text_field :postal_code, class: "form-control", placeholder: "例: 123-4567" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "登録", class: "btn btn-primary" %>
+    <%= link_to "戻る", rooms_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

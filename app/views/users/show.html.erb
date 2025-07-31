@@ -1,0 +1,16 @@
+<h1><%= @user.name %> さんのアカウント情報</h1>
+
+<div class="user-info">
+  <p>名前：<%= @user.name %></p>
+  <p>メールアドレス：<%= @user.email %></p>
+  <p>パスワード：＊＊＊＊＊＊＊</p>
+</div>
+
+<div class="actions">
+  <%= link_to "削除", user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  <%= link_to "編集", account_edit_user_path(@user), class: "btn btn-secondary" %>
+</div>
+
+
+
+<%= link_to "施設一覧に戻る", rooms_path, class: "btn btn-secondary" %>
